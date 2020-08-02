@@ -38,10 +38,12 @@ SetFileLocationWidget.prototype.render = function(parent,nextSibling) {
   this.computeAttributes();
   this.execute();
 
-  var tag = "button";
-  var domNode = this.document.createElement(tag);
-  domNode.addEventListener("click",function (event) {
-      // $tw.Bob.Reconnect(this.sync);
+  var domNode = this.document.createElement("div");
+  var buttonNode = this.document.createElement("button");
+  var statusNode = this.document.createElement("p");
+  var currentHandle = $tw.wiki.nfsSaver.handle;
+
+  buttonNode.addEventListener("click",function (event) {
       const opts = {
       type: 'save-file',
       accepts: [{
@@ -56,14 +58,27 @@ SetFileLocationWidget.prototype.render = function(parent,nextSibling) {
     })
   });
 
+  if (currentHandle) {
+    statusNode.innerHTML = "<em>Save location set</em>";
+  } else {
+    statusNode.innerHTML = "<em>Not set</em>";
+  }
+  statusNode.style.display = "inline";
+
+  buttonNode.innerHTML = "Set";
+  buttonNode.style.display = "inline";
+  buttonNode.style.marginLeft = "10px";
+
+  // Populate top level element
+  domNode.appendChild(statusNode);
+  domNode.appendChild(buttonNode);
+
   // Insert element
   parent.insertBefore(domNode,nextSibling);
   this.renderChildren(domNode,null);
   this.domNodes.push(domNode);
-
-
-};
-
+}
+;
 
 exports["setfilelocation"] = SetFileLocationWidget;
 
