@@ -1,0 +1,10 @@
+{
+    "title": "$:/plugins/pacovell/nfssaver",
+    "description": "save to file system",
+    "author": "pacovell",
+    "version": "0.0.1",
+    "core-version": ">=5.0.8",
+    "source": "https://github.com/pacovell/nfssaver",
+    "plugin-type": "plugin",
+    "list": "config"
+}

@@ -1,0 +1,9 @@
+title: $:/plugins/pacovell/nfssaver/config
+
+! Usage
+
+Click here to set the storage file
+
+<$setfilelocation>
+Press me!
+</$setfilelocation>
