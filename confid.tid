@@ -2,6 +2,8 @@ title: $:/plugins/pacovell/nfssaver/config
 
 ! Usage
 
-Click here to set the storage file
+Click here to set the storage file.  You can put a $setfilelocation widget on any page.
+
+Coming soon: serializing the file location so you only need to do this when the browser clears its local storage.
 
 <$setfilelocation />
