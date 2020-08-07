@@ -45,7 +45,7 @@ SetFileLocationWidget.prototype.render = function(parent,nextSibling) {
 
   buttonNode.addEventListener("click",function (event) {
       const opts = {
-      type: 'save-file',
+      type: 'open-file',
       accepts: [{
         description: 'HTML file',
         extensions: ['html'],
