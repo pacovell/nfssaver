@@ -10,30 +10,33 @@ Handles saving changes via the Native File System API
 
 /*jslint node: true, browser: true */
 /*global $tw: false */
+/*global idbKeyval */
 "use strict";
 
 /*
 Select the appropriate saver module and set it up
 */
 var NfsSaver = function(wiki) {
+	this.idbKeyval = require("$:/plugins/pacovell/nfssaver/idb-keyval-iife.js").idbKeyval;
+	wiki.nfsSaver = this;
 };
 
 NfsSaver.prototype.save = function(text,method,callback,options) {
 	options = options || {};
-	// Get the current filename
+	var self = this;
 
-	var handle = $tw.wiki.nfsSaver.handle;
+	(async() => {
+		var handle = await self.getHandle();
 
-	if (handle) {
-		(async() => {
+		if (handle) {
 		 	var writable = await handle.createWritable();
 		 	await writable.write(text);	
 		 	await writable.close();
+		 }
 
-			// Callback that we succeeded
-			callback(null);
-		})();
-	}
+		// Callback that we succeeded
+		callback(null);
+	})();
 	return true;
 };
 
@@ -44,6 +47,17 @@ NfsSaver.prototype.info = {
 	name: "download",
 	priority: 100
 };
+
+/*
+Get handle
+*/
+NfsSaver.prototype.getHandle = async function() {
+	return this.idbKeyval.get('nfsSaverFileLocation');
+};
+
+NfsSaver.prototype.setHandle = function(handle) {
+	this.idbKeyval.set('nfsSaverFileLocation', handle);
+}
 
 Object.defineProperty(NfsSaver.prototype.info, "capabilities", {
 	get: function() {
@@ -69,5 +83,8 @@ exports.create = function(wiki) {
 	wiki.nfsSaver = new NfsSaver(wiki);
 	return wiki.nfsSaver;
 };
+
+
+
 
 })();

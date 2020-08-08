@@ -41,7 +41,6 @@ SetFileLocationWidget.prototype.render = function(parent,nextSibling) {
   var domNode = this.document.createElement("div");
   var buttonNode = this.document.createElement("button");
   var statusNode = this.document.createElement("p");
-  var currentHandle = $tw.wiki.nfsSaver.handle;
 
   buttonNode.addEventListener("click",function (event) {
       const opts = {
@@ -54,16 +53,16 @@ SetFileLocationWidget.prototype.render = function(parent,nextSibling) {
     };
 
     window.chooseFileSystemEntries(opts).then(function(handle) {
-      $tw.wiki.nfsSaver.handle = handle;
+      $tw.wiki.nfsSaver.setHandle(handle);
     })
   });
 
-  if (currentHandle) {
-    statusNode.innerHTML = "<em>Save location set</em>";
-  } else {
-    statusNode.innerHTML = "<em>Not set</em>";
-  }
-  statusNode.style.display = "inline";
+  // if (currentHandle) {
+  //   statusNode.innerHTML = "<em>Save location set</em>";
+  // } else {
+  //   statusNode.innerHTML = "<em>Not set</em>";
+  // }
+  // statusNode.style.display = "inline";
 
   buttonNode.innerHTML = "Set";
   buttonNode.style.display = "inline";
